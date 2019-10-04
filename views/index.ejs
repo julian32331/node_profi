@@ -1,0 +1,60 @@
+<% layout('app') -%>
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin">
+                <div class="d-flex align-items-baseline flex-wrap mt-3">
+                    <h2 class="mr-4 mb-0">Dashboard</h2>
+                    <div class="d-flex align-items-baseline mt-2 mt-sm-0">
+                        <i class="fas fa-home mr-1 text-muted"></i>
+                        <i class="fas fa-chevron-right fa-xs mr-1 text-muted"></i>
+                        <p class="mb-0 mr-1">Dashboard</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-baseline">
+                            <i class="fas fa-circle text-success mr-2 fa-sm"></i>
+                            <p class="card-title mb-1">Users</p>
+                        </div>
+                        <h4 class="mb-2 mt-1 text-white"><%=users.length%> users</h4>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap float-right">
+                            <div class="d-flex align-items-center">
+                                <a href="/users">
+                                    <div class="badge badge-success">View all</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-baseline">
+                            <i class="fas fa-circle text-success mr-2 fa-sm"></i>
+                            <p class="card-title mb-1">Ticketmaster</p>
+                        </div>
+                        <h4 class="mb-2 mt-1 text-white"><%=tm_events.length%> events</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-baseline">
+                            <i class="fas fa-circle text-primary mr-2 fa-sm"></i>
+                            <p class="card-title mb-1">Stubhub</p>
+                        </div>
+                        <h4 class="mb-2 mt-1 text-white"><%=sh_events.length%> events</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

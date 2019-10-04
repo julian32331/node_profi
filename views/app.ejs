@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Ticketdatamaster Admin</title>
+    <link rel="stylesheet" href="/vendors/iconfonts/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/vendors/css/vendor.bundle.addons.css">
+    <link rel="stylesheet" href="/css/vertical-layout-dark/style.css">
+    <link rel="shortcut icon" href="/images/favicon.png" />
+    <script src="/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/vendors/js/vendor.bundle.addons.js"></script>
+    <script src="/js/off-canvas.js"></script>
+    <script src="/js/hoverable-collapse.js"></script>
+    <script src="/js/template.js"></script>
+    <script src="/js/settings.js"></script>
+    <script src="/js/todolist.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/data-table.js"></script>
+</head>
+
+<body>
+    <div class="container-scroller">
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="/"><img src="/images/logo_white.png" alt=""
+                        style="width: 150px;"></a>
+                <a class="navbar-brand brand-logo-mini" href="/"><img src="/images/logo_white.png" alt=""
+                        style="width: 150px;"></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="fas fa-align-justify"></span>
+                </button>
+                <ul class="navbar-nav mr-lg-2">
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="fas fa-align-justify"></span>
+                </button>
+            </div>
+        </nav>
+        <div class="container-fluid page-body-wrapper">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="profile">
+                        <div class="profile-wrapper">
+                            <div class="profile-details">
+                                <p class="name">Administrator</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fa fa-home menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                            aria-controls="ui-basic">
+                            <i class="fa fa-user menu-icon"></i>
+                            <span class="menu-title">Users</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="/users">User list</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/invitation">Send Invitation</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/setting">
+                            <i class="fa fa-cog menu-icon"></i>
+                            <span class="menu-title">Setting</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">
+                            <i class="fa fa-sign-out-alt menu-icon"></i>
+                            <span class="menu-title">Logout</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+            <%-body -%>
+        </div>
+    </div>
+
+</body>
+
+</html>

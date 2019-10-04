@@ -1,0 +1,212 @@
+<% layout('app') -%>
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-12 grid-margin">
+        <div class="d-flex align-items-baseline flex-wrap mt-3">
+          <h2 class="mr-4 mb-0">Users</h2>
+          <div class="d-flex align-items-baseline mt-2 mt-sm-0">
+            <i class="fas fa-user mr-1 text-muted"></i>
+            <i class="fas fa-chevron-right fa-xs mr-1 text-muted"></i>
+            <p class="mb-0 mr-1">Users</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table id="order-listing" class="table order-listing">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Email</th>
+                    <th>UserID</th>
+                    <th>Created at</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(let i = 0; i < users.length ; i++)  { let user = users[i]; %>
+                  <tr>
+                    <td><%=i+1%></td>
+                    <td><%=user.email%></td>
+                    <td><%=user.userID%></td>
+                    <td>
+                      <% let date = new Date(user.created_at); %>
+                      <%=date.toLocaleString()%>
+                    </td>
+                    <td>
+                      <% if(user.active == 1) { %>
+                      <label class="badge badge-success">Active</label>
+                      <% } else if(user.active == 2) { %>
+                      <label class="badge badge-danger">On Hold</label>
+                      <% } else if(user.active == 0) { %>
+                      <label class="badge badge-info">Invitation Sent</label>
+                      <% } %>
+                    </td>
+                    <td>
+                      <div class="dropdown">
+                        <button type="button" class="btn btn-warning dropdown-toggle" id="dropdownMenuIconButton5"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-sign-out-alt"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton5" x-placement="bottom-start"
+                          style="position: absolute; transform: translate3d(0px, 41px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <h6 class="dropdown-header">Action</h6>
+                          <a class="dropdown-item" onclick="viewUserEvnets('<%=user.userID%>')">View User Events</a>
+                          <% if(user.active == 2 ) { %>
+                          <a class="dropdown-item" onclick="action(1, '<%=user.userID%>')">Make Active</a>
+                          <% } else { %>
+                          <a class="dropdown-item" onclick="action(2, '<%=user.userID%>')">Take on hold</a>
+                          <% } %>
+                          <a class="dropdown-item" onclick="actionPermission('<%=user.userID%>')">Edit permission</a>
+                          <a class="dropdown-item" onclick="action(0, '<%=user.userID%>')">Resend invitation</a>
+                          <a class="dropdown-item" onclick="action(3, '<%=user.userID%>')">Remove</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="modal fade show" id="editPermission" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  style="display: none; padding-right: 17px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Permission Edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-check form-check-flat form-check-primary">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name="permission_daily" id="permission_daily">
+              Daily pull
+              <i class="input-helper"></i></label>
+          </div>
+          <div class="form-check form-check-flat form-check-primary">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name="permission_specified" id="permission_specified">
+              Able to pull with sepcialized pull frequencies
+              <i class="input-helper"></i></label>
+          </div>
+          <div class="input-group">
+            <label for="" class="mr-3 pt-2">Max tracking events:</label>
+            <input type="text" class="form-control" name="permission_maxEvents" id="permission_maxEvents">
+          </div>
+          <hr>
+          <div class="form-check form-check-flat form-check-primary">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name="permission_prediction" id="permission_prediction">
+              Able to access prediction page
+              <i class="input-helper"></i></label>
+          </div>
+          <div class="form-check form-check-flat form-check-primary">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name="permission_compare" id="permission_compare">
+              Able to access compare page
+              <i class="input-helper"></i></label>
+          </div>
+          <input type="hidden" id="permission_userID">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" onclick="updateProfile();">Update</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+  function updateProfile() {
+    // alert($('#permission_userID').val());
+    $.ajax({
+      url: '/updatePermission/' + $('#permission_userID').val(),
+      method: 'POST',
+      data: {
+        daily: $('#permission_daily').val(),
+        specified: $('#permission_specified').val(),
+        prediction: $('#permission_prediction').val(),
+        compare: $('#permission_compare').val(),
+        maxEvents: $('#permission_maxEvents').val()
+      },
+      success: function (res) {
+        $('#editPermission').modal('hide');
+      }
+    })
+  }
+  function actionPermission(userID) {
+    //get permission data
+    $.ajax({
+      url: '/getPermission/' + userID,
+      method: 'GET',
+      success: function (res) {
+        let permission = res.permission;
+        $('#permission_daily').prop('checked', permission.daily);
+        $('#permission_specified').prop('checked', permission.specified);
+        $('#permission_prediction').prop('checked', permission.prediction);
+        $('#permission_compare').prop('checked', permission.compare);
+        $('#permission_daily').prop('checked', permission.daily);
+        $('#permission_maxEvents').val(permission.maxEvents);
+      }
+    })
+    $('#permission_userID').val(userID);
+    $('#editPermission').modal();
+  }
+  function viewUserEvnets(userID) {
+    window.location.href = '/user/' + userID;
+  }
+  function action(mode, userID) {
+    swal({
+      title: 'Are you sure?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3f51b5',
+      cancelButtonColor: '#ff4081',
+      confirmButtonText: 'Great ',
+      buttons: {
+        cancel: {
+          text: "Cancel",
+          value: null,
+          visible: true,
+          className: "btn btn-danger",
+          closeModal: true,
+        },
+        confirm: {
+          text: "OK",
+          value: true,
+          visible: true,
+          className: "btn btn-primary",
+          closeModal: true
+        }
+      }
+    }).then((v) => {
+      if (v) {
+        $.ajax({
+          url: '/action/' + mode + '/' + userID,
+          method: 'GET',
+          success: (res) => {
+            location.reload();
+          }
+        })
+      }
+    })
+  }
+</script>

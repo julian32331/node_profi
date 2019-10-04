@@ -1,0 +1,57 @@
+<% layout('app') -%>
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin">
+                <div class="d-flex align-items-baseline flex-wrap mt-3">
+                    <h2 class="mr-4 mb-0">Invitation</h2>
+                    <div class="d-flex align-items-baseline mt-2 mt-sm-0">
+                        <i class="fas fa-user mr-1 text-muted"></i>
+                        <i class="fas fa-chevron-right fa-xs mr-1 text-muted"></i>
+                        <p class="mb-0 mr-1">Invitation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-control">
+                    <textarea name="" id="emails" class="form-control" rows="20"></textarea>
+                </div>
+                <div class="form-control text-right">
+                    <button class="btn btn-success" id="btn-send">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(() => {
+        $("#btn-send").click(() => {
+            if ($('#emails').val()) {
+                $.ajax({
+                    url: '/invitation',
+                    method: 'POST',
+                    data: {
+                        emails: $('#emails').val()
+                    },
+                    success: (res) => {
+                        swal({
+                            title: 'Success!',
+                            text: 'Invitations have been sent successfully. You can check users in user list.',
+                            icon: 'success',
+                            button: {
+                                text: "OK",
+                                value: true,
+                                visible: true,
+                                className: "btn btn-primary"
+                            }
+                        })
+                    }
+                })
+            } else {
+                $('#emails').focus();
+            }
+        })
+    })
+</script>

@@ -1,0 +1,158 @@
+/* Lists */
+
+ul,
+ol,
+dl {
+  padding-left: 1rem;
+  font-size: $default-font-size;
+  li {
+    line-height: 1.8;
+  }
+}
+
+.list-ticked,
+.list-arrow,
+.list-star {
+  list-style: none;
+  padding: 0;
+  li {
+    padding-left: 1.5rem;
+    &:before {
+      font-family: "Font Awesome 5 Free";
+      margin-left: -1.5rem;
+      width: 1.5rem;
+      margin-right: .5rem;
+      font-weight: bold;
+    }
+  }
+}
+
+.list-ticked {
+  li {
+    &:before {
+      content: '\f560';
+      color: theme-color(danger);
+    }
+  }
+}
+
+.list-arrow {
+  li {
+    &:before {
+      content: '\f105';
+      color: theme-color(success);
+    }
+  }
+}
+
+.list-star {
+  li {
+    &:before {
+      content: '\f005';
+      color: theme-color(warning);
+    }
+  }
+}
+
+.solid-bullet-list {
+  position: relative;
+  padding-left: 0;
+  .rtl & {
+    padding-right: 0;
+  }
+  li {
+    position: relative;
+    list-style-type: none;
+    padding-left: 25px;
+    line-height: 1;
+    padding-bottom: 2.125rem;
+    * {
+      line-height: .8;
+    }
+    &:before,
+    &:after {
+      content:"";
+      position: absolute;
+    }
+    &:before {
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background: theme-color(primary);
+      z-index: 1;
+    }
+  }
+  &:after {
+    content: "";
+    border: 1px solid $border-color;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 4px;
+    z-index: 0;
+  }
+}
+
+.bullet-line-list {
+  padding-left: 30px;
+  position: relative;
+  list-style-type: none;
+  .rtl & {
+    padding-left: unset;
+    padding-right: 30px;
+  }
+
+  li {
+    position: relative;
+
+    &:before {
+      width: 19px;
+      height: 19px;
+      left: -30px;
+      top: -3px;
+      margin-right: 15px;
+      z-index: 2;
+      background: color(gray-lightest);
+      content: "\f017";
+      font-family: 'Font Awesome 5 Free';
+      position: absolute;
+      border-radius: 100%;
+      padding-left: 4px;
+      line-height: 20px;
+      font-size: .767rem;
+
+      .rtl & {
+        left: unset;
+        right: -45px;
+      }
+    }
+    &:nth-child(odd) {
+      &::before {
+        color: $black;
+      }
+    }
+    &:nth-child(even) {
+      &::before {
+        color: theme-color(primary);
+      }
+    }
+  }
+
+  &:after {
+    content: "";
+    border: 1px solid $border-color;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 9px;
+    width: 1px;
+    height: 100%;
+    background: #2f3147;
+    .rtl & {
+      left: unset;
+      right: 7px;
+    }
+  }
+}

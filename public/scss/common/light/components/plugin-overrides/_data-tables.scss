@@ -1,0 +1,89 @@
+/* Data Tables */
+
+.dataTables_wrapper {
+  padding-left: 0;
+  padding-right: 0;
+  label {
+    font-size: .8125rem;
+  }
+  select {
+    @extend .form-control;
+    padding: .4rem;
+    outline-offset: -2px;
+  }
+  .dataTables_length {
+    select {
+      margin-left: .25rem;
+      margin-right: .25rem;
+    }
+  }
+  .dataTable {
+    border-collapse: collapse !important; // to override the style give by the datatable
+    .btn {
+      padding: 0.1rem 1rem;
+      vertical-align: top;
+    }
+    thead {
+      th {
+        border-bottom-width: 0;
+        background: #e5e3ee;
+        padding: 1.8rem 0.9375rem;
+        &:first-child {
+          border-radius: 6px 0 0 0;
+        }
+        &:last-child {
+          border-radius: 0 6px 0 0;
+        }
+      }
+      .sorting,
+      .sorting_asc,
+      .sorting_desc,
+      .sorting_asc_disabled,
+      .sorting_desc_disabled {
+        padding-right: 40px;
+        &:before,
+        &:after {
+          line-height: 2.5;
+          font-family: 'Font Awesome 5 Free';
+          font-size: .65rem;
+          font-weight: bold;
+          bottom: 1.2rem;
+        }
+        &:before {
+          content: "\f062";
+          right: 2em;
+        }
+        &:after {
+          content: "\f063";
+          right: 1em;
+        }
+      }
+    }
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background: #faf9fc;
+        }
+        td {
+          border: none;
+          border-right: 1px solid #f0f0f0;
+          border-left: 1px solid #f0f0f0; 
+        }
+        &:last-child {
+          td {
+            border-bottom: 1px solid #f0f0f0;            
+          }
+        } 
+      }
+    }
+  }
+  .dataTables_paginate {
+    margin-top: 20px;
+  }
+  .dataTables_info {
+    font-size: $default-font-size;
+    @media(max-width: 576px) {
+      margin-bottom: 1rem;
+    }
+  }
+}

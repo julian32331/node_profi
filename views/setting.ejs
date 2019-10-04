@@ -1,0 +1,90 @@
+<% layout('app') -%>
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin">
+                <div class="d-flex align-items-baseline flex-wrap mt-3">
+                    <h2 class="mr-4 mb-0">Setting</h2>
+                    <div class="d-flex align-items-baseline mt-2 mt-sm-0">
+                        <i class="fas fa-cog mr-1 text-muted"></i>
+                        <i class="fas fa-chevron-right fa-xs mr-1 text-muted"></i>
+                        <p class="mb-0 mr-1">Setting</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="password">Current Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password"
+                                name="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" class="form-control" id="newPassword" placeholder="New password"
+                                name="newPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword"
+                                placeholder="Confirm password" name="confirmPassword">
+                        </div>
+                        <div class="form-group">
+                            <div class="alert alert-fill-danger" role="alert" id="error" style="display: none;">
+                                Confirm password is not matched.
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <button class="btn btn-success" onclick="onChangePwd();">Change</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function onChangePwd() {
+        if ($('#password').val() == '' || $('#newPassword').val() == '' || $('#confirmPassword').val() == '') {
+            $('#error').attr('style', 'display: block;');
+            $('#error').html('Please enter all rows.');
+            return;
+        }
+        if ($('#newPassword').val() != $('#confirmPassword').val()) {
+            $('#error').attr('style', 'display: block;');
+            $('#error').html('Confirm password is not matched.');
+        } else {
+            $('#error').attr('style', 'display: none;');
+            $.ajax({
+                url: '/setting/changePassword',
+                method: 'POST',
+                data: {
+                    currentPassword: $('#password').val(),
+                    newPassword: $('#newPassword').val()
+                },
+                success: (res) => {
+                    if (res.status) {
+                        swal({
+                            title: 'Success!',
+                            text: 'Password has been changed successfully.',
+                            icon: 'success',
+                            button: {
+                                text: "OK",
+                                value: true,
+                                visible: true,
+                                className: "btn btn-primary"
+                            }
+                        })
+                    } else {
+                        $('#error').attr('style', 'display: block;');
+                        $('#error').html(res.message);
+                    }
+                }
+            })
+        }
+    }
+</script>
