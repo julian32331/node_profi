@@ -6,6 +6,7 @@ var main = new mainController();
 
 router.get('/', isLoggedIn, main.index)
 router.get('/login', main.login)
+router.get('/landing', main.landing)
 router.get('/users', isLoggedIn, main.usersPage)
 router.get('/invitation', isLoggedIn, main.invitationPage)
 router.post('/invitation', isLoggedIn, main.invitation)
@@ -36,7 +37,7 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    res.redirect('/login');
+    res.redirect('/landing');
   }
 }
 

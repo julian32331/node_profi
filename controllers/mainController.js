@@ -24,6 +24,10 @@ class mainController {
         res.render('index', { users, tm_events, sh_events })
     }
 
+    landing(req,res) {
+        res.render('landing')
+    }
+
     login(req, res) {
         res.render('login')
     }
