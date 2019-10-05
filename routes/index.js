@@ -4,9 +4,10 @@ var passport = require('passport');
 var mainController = require('../controllers/mainController');
 var main = new mainController();
 
-router.get('/', isLoggedIn, main.index)
 router.get('/login', main.login)
 router.get('/landing', main.landing)
+
+router.get('/', isLoggedIn, main.index)
 router.get('/users', isLoggedIn, main.usersPage)
 router.get('/invitation', isLoggedIn, main.invitationPage)
 router.post('/invitation', isLoggedIn, main.invitation)
